@@ -1,0 +1,48 @@
+service: weather-forecast
+
+provider:
+  name: aws
+  tenant: chiefwizard
+  app: env-test
+  runtime: nodejs8.10
+  region: 'us-east-1'
+  frameworkVersion: ">=1.43.0"
+  #Global env for all functions
+  environment:
+    AWS_REGION_ENV: 'us-east-1'
+    ACCESS_KEY_ID: ${file(./secrets.json):AccessKeyId}
+    SECRET_ACCESS_KEY: ${file(./secrets.json):SecretAccessKey}
+plugins:
+  - serverless-offline
+functions:
+  #KMS
+  darksky:
+    handler: handler.darksky
+    environment: 
+      DARKSKY_URL: 'https://api.darksky.net/forecast'
+      DARKSKY_APIKEY: ${ssm:/darksky-api-key}
+    events:
+      - http:
+          path: /darksky/{latitude}/{longitude}
+          method: get
+  #SecretsManager
+  openweathermap:
+    handler: handler.openweathermap
+    environment: 
+      OPENWEATHERMAP_URL: 'https://samples.openweathermap.org/data/2.5/weather'
+      OPENWEATHERMAP_APPID: 'openweathermap-appid'
+    events:
+      - http:
+          path: /openweathermap/{latitude}/{longitude}
+          method: get
+  #File & Serverless Dashboard
+  dest:
+    handler: handler.dest
+    environment: 
+      DEST_URL: 'https://weather.cit.api.here.com/weather/1.0/report.json'
+      DEST_APP_ID: ${file(./secrets.json):DestApiId}
+      DEST_APP_CODE: ${secrets:dest-app-code}
+    events:
+      - http:
+          path: /dest/{latitude}/{longitude}
+          method: get
