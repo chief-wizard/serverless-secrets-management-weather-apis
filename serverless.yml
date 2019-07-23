@@ -20,7 +20,7 @@ functions:
     handler: handler.darksky
     environment: 
       DARKSKY_URL: 'https://api.darksky.net/forecast'
-      DARKSKY_APIKEY: ${ssm:/darksky-api-key}
+      DARKSKY_APIKEY: ${ssm:/darksky-api-key~true}
     events:
       - http:
           path: /darksky/{latitude}/{longitude}
