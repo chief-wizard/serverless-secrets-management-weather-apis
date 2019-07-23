@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 var AWS = require('aws-sdk'),
     region = process.env.AWS_REGION_ENV,
-    secretName = process.env.OPENWEATHERMAP_APPID,
+    secretName = process.env.OPENWEATHERMAP_APPID_LOCATION,
     accessKeyId = process.env.ACCESS_KEY_ID,
     secretAccessKey = process.env.SECRET_ACCESS_KEY,
     decodedBinarySecret;
