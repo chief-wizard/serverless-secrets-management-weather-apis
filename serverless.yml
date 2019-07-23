@@ -30,7 +30,7 @@ functions:
     handler: handler.openweathermap
     environment: 
       OPENWEATHERMAP_URL: 'https://samples.openweathermap.org/data/2.5/weather'
-      OPENWEATHERMAP_APPID: 'openweathermap-appid'
+      OPENWEATHERMAP_APPID_LOCATION: 'openweathermap-appid'
     events:
       - http:
           path: /openweathermap/{latitude}/{longitude}
