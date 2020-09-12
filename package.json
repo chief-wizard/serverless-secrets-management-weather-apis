@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "aws-sdk": "^2.493.0",
-        "node-fetch": "^2.6.0"
+        "node-fetch": "^2.6.1"
     },
     "devDependencies": {
         "serverless-offline": "^5.7.3"
